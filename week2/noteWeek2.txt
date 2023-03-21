@@ -1,0 +1,106 @@
+Stack: UFO last in first out
+Queue: FIFO: first ih first out
+1. STACK
+
+    public class StackOfStrings
+        stackOfStrings() // create empty stack
+        void push(String item) // insert a new string ON THE TOP
+        String pop() //remove and return the string
+        boolean isEmpty()
+        int size()
+
+    Link-list
+        private class Node {
+            String item;
+            Node next;
+        }
+
+        pop()
+            String item = first.item;
+            first = first.next;
+            return item;
+
+        push()
+            Node oldfirst = first;
+            first = new Node();
+            first item = "something";
+            first.next = oldfirst;
+
+
+    Array implementation //Stack overflows when array exceed it capacity
+
+    s[]
+    push(): add new item at s[N]
+    pop: remove item from s[N-1]
+
+        private String[] s;
+        private int N = 0;
+
+2. Resizing-array implementation
+
+    push() // double size of array s[] when array is full
+    pop() // halve size of array s[] when array is one-quarter full
+
+
+2. QUEUE - first in first ou
+
+    public class QueueOfStrings
+        QueueOfStrings() //  construction
+        void enqueue(String item) // insert a new string onto queue
+        String dequeue() // remove that first added
+        boolean isEmpty()
+        int size()
+
+    linked-list implementation
+
+        maintain 2 references: first and last
+
+        public class LinkedQueueOfStrings
+        {
+            private Node first, last;
+
+            private class Node {
+                String item;
+                Node next;
+            }
+
+            public boolean isEmpty()
+            { return first == null }
+
+            public void enqueue(String item)
+            {
+                Node oldLast = last;
+                last = new Node();
+                last.item = item;
+                last.next = null;
+                if (isEmpty()) first = last;
+                else oldLast.next = last;
+            }
+
+            public String dequeue()
+            {
+                String item = first.item;
+                first = first.next;
+                if (isEmpty()) last = null;
+                return item;
+            }
+        }
+
+3. Iterators:
+
+    Iterable: method that returns an Iterator
+    Iterator: hasNext() and next()
+
+        public interface Iterable<Item>
+        {
+            Iterator<Item> iterator();
+
+            boolean hasNext();
+            public Item next();
+            {
+                Item item =  current.item;
+                current = current.next;
+                return item;
+            }
+
+        }

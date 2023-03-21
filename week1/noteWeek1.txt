@@ -1,0 +1,12 @@
+Quick-Union Improvements
+1. Weighting:
+    Modify quick-union to avoid tall trees
+    Keep track of size of each tree
+    Balance by linking root of smaller tree to root of larger tree
+2.  Path compression
+    id[i] = id[id[i]]
+    keep the tree flat
+3. Application
+    Percolation:
+        n-n grid
+        percolated if there is a connection from the top to bottom
