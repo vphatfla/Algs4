@@ -129,5 +129,6 @@ public class Point implements Comparable<Point> {
         Point p1 = new Point(1, 2);
         Point p2 = new Point(3, 2);
         System.out.println(pRoot.slopeTo(p1));
+        System.out.println(pRoot.slopeTo(p2));
     }
 }
