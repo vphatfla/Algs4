@@ -1,0 +1,9 @@
+Using Priority Queue with root is median. The 2 children of the root will be 2 medians of the upper and lower array.
+Ex: from 1 to 100. A[1] root is 50, a[2] is 25 and a[3] is 75, and so forth.
+---> insert a arbitrary number is log ---> binary search
+---> find-the-median is a[1] -> constant
+---> remove-the-median ---> first
+exch(a,1,n);
+n-=1;
+a[n+1] = null; --> remove the median
+sink(a,1n) --> sink it down --> log
