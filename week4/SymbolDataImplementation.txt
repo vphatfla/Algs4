@@ -1,0 +1,16 @@
+1. Unorder linked list of key-value pairs
+    ex: (key1 - value1)-(key2 - value2) ...
+    search: have to scan through the whole keys until find a match --> N
+    insert: have to scan through the whole keys to find a match, if not insert new key-value --> N in worst case
+
+2. Two(2) parallel arrays contain key-value
+    Keep them in order
+    Seach: use binary search --> log(N)
+    Insert: have to move all of the greater keys to the right ---> N
+
+ST implementation       worstcase           average case        order
+                     search      insert      search  insert
+linked list         N           N            N/2        N       no
+2-array             log(N)      N            log(N)     N/2     yes
+
+log(N) by using binary search

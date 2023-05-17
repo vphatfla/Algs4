@@ -1,4 +1,4 @@
-package week2;
+package week2_3;
 
 import edu.princeton.cs.algs4.Merge;
 
@@ -10,7 +10,7 @@ public class BruteCollinearPoints {
     private LineSegment[] lineSegments;
 
     // finds all line segments containing 4 points
-    public BruteCollinearPoints(Point[] points) {
+    public BruteCollinearPoints(LineSegment.Point[] points) {
         if (checkNull(points)) throw new IllegalArgumentException();
         if (checkDuplicate(points)) throw new IllegalArgumentException();
         // use arraylist because unknown size
@@ -21,10 +21,10 @@ public class BruteCollinearPoints {
             for (int b = a + 1; b < n - 2; b += 1)
                 for (int c = b + 1; c < n - 1; c += 1)
                     for (int d = c + 1; d < n; d += 1) {
-                        Point p = points[a];
-                        Point q = points[b];
-                        Point r = points[c];
-                        Point s = points[d];
+                        LineSegment.Point p = points[a];
+                        LineSegment.Point q = points[b];
+                        LineSegment.Point r = points[c];
+                        LineSegment.Point s = points[d];
 
                         if ((p.slopeTo(q) == p.slopeTo(r)) && (p.slopeTo(q) == p.slopeTo(s))) {
                             countSegment += 1;
@@ -34,9 +34,9 @@ public class BruteCollinearPoints {
         lineSegments = arListSegments.toArray(new LineSegment[0]);
     }
 
-    private boolean checkDuplicate(Point[] points) {
+    private boolean checkDuplicate(LineSegment.Point[] points) {
         // copy and use merge sort to check
-        Point[] points1 = new Point[points.length];
+        LineSegment.Point[] points1 = new LineSegment.Point[points.length];
         System.arraycopy(points, 0, points1, 0, points1.length);
 
         Merge.sort(points1);
@@ -47,7 +47,7 @@ public class BruteCollinearPoints {
         return false;
     }
 
-    private boolean checkNull(Point[] points) {
+    private boolean checkNull(LineSegment.Point[] points) {
         if (points == null) return true;
         for (int i = 0; i < points.length; i += 1) {
             if (points[i] == null) return true;

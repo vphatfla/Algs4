@@ -1,4 +1,4 @@
-package week2;
+package week2_3;
 
 import edu.princeton.cs.algs4.Merge;
 import edu.princeton.cs.algs4.StdDraw;
@@ -11,7 +11,7 @@ import java.util.Arrays;
 public class FastCollinearPoints {
     private LineSegment[] lineSegments;
 
-    public FastCollinearPoints(Point[] points) {
+    public FastCollinearPoints(LineSegment.Point[] points) {
         if (checkNull(points)) throw new IllegalArgumentException();
         if (checkDuplicate(points)) throw new IllegalArgumentException();
 
@@ -20,15 +20,15 @@ public class FastCollinearPoints {
         ArrayList<LineSegment> arListSegments = new ArrayList<>();
 
         // sort the points first
-        Point[] pointsSortedByPoint = new Point[points.length];
+        LineSegment.Point[] pointsSortedByPoint = new LineSegment.Point[points.length];
         System.arraycopy(points, 0, pointsSortedByPoint, 0, pointsSortedByPoint.length);
         Arrays.sort(pointsSortedByPoint);
 
         // declare sort by slope array
-        Point[] pointsSortedBySlope = new Point[points.length];
+        LineSegment.Point[] pointsSortedBySlope = new LineSegment.Point[points.length];
 
         // treat point p as origin
-        for (Point p : pointsSortedByPoint) {
+        for (LineSegment.Point p : pointsSortedByPoint) {
             System.arraycopy(pointsSortedByPoint, 0, pointsSortedBySlope, 0, pointsSortedBySlope.length);
             Arrays.sort(pointsSortedBySlope, p.slopeOrder());
 
@@ -37,7 +37,7 @@ public class FastCollinearPoints {
 
             while (index < pointsSortedBySlope.length) {
                 // currentPoints is collection of points that are processing
-                ArrayList<Point> currentPoints = new ArrayList<>();
+                ArrayList<LineSegment.Point> currentPoints = new ArrayList<>();
                 double currentSlope = p.slopeTo(pointsSortedBySlope[index]);
                 currentPoints.add(pointsSortedBySlope[index]);
                 // run loop to check next points
@@ -46,7 +46,7 @@ public class FastCollinearPoints {
                     currentPoints.add(pointsSortedBySlope[index]);
                     index += 1;
                 }
-                
+
                 // check if we have more than 3 points that are in the same segment with p (origin)
                 // check compare to make sure there will be no duplicate
                 if (currentPoints.size() >= 3 && p.compareTo(currentPoints.get(0)) < 0) {
@@ -67,9 +67,9 @@ public class FastCollinearPoints {
         return lineSegments;
     }  // the line segments
 
-    private boolean checkDuplicate(Point[] points) {
+    private boolean checkDuplicate(LineSegment.Point[] points) {
         // copy and use merge sort to check
-        Point[] points1 = new Point[points.length];
+        LineSegment.Point[] points1 = new LineSegment.Point[points.length];
         System.arraycopy(points, 0, points1, 0, points1.length);
 
         Merge.sort(points1);
@@ -80,7 +80,7 @@ public class FastCollinearPoints {
         return false;
     }
 
-    private boolean checkNull(Point[] points) {
+    private boolean checkNull(LineSegment.Point[] points) {
         if (points == null) return true;
         for (int i = 0; i < points.length; i += 1) {
             if (points[i] == null) return true;
@@ -93,18 +93,18 @@ public class FastCollinearPoints {
         // read the n points from a file
         In in = new In(args[0]);
         int n = in.readInt();
-        Point[] points = new Point[n];
+        LineSegment.Point[] points = new LineSegment.Point[n];
         for (int i = 0; i < n; i++) {
             int x = in.readInt();
             int y = in.readInt();
-            points[i] = new Point(x, y);
+            points[i] = new LineSegment.Point(x, y);
         }
 
         // draw the points
         StdDraw.enableDoubleBuffering();
         StdDraw.setXscale(0, 32768);
         StdDraw.setYscale(0, 32768);
-        for (Point p : points) {
+        for (LineSegment.Point p : points) {
             p.draw();
         }
         StdDraw.show();

@@ -1,4 +1,4 @@
-package week2;
+package week2_3;
 
 import static edu.princeton.cs.algs4.QuickBentleyMcIlroy.exch;
 
