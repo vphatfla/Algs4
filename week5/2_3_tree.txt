@@ -1,0 +1,9 @@
+2-3 tree
+Allow 1 or 2 keys per node
+    2-node: 1 key, 2 childrens, which are less and greater than the node
+    3-node: 2 keys, 3 childrens, which are less than the left key, between 2 keys, and greater than the right key.
+
+Performance: guarrante the symmatric of the graph, balance
+All method: clgN run time, c depends upon implementation
+
+--> too complicated, could do better
