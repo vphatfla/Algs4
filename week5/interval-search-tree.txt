@@ -1,0 +1,27 @@
+Interval search tree
+
+Datastructure to hold set of (overlapping) intervals
+
+1. Use left endpoint as BST key.
+2. Store max endpoint in subtree at node.
+
+Search for interval that intersect
+1. If interval in node intersects query interval return.
+2. Else if left subtree is null, go right
+3. Else if max endpoint of left subtree max < lo, go right
+4. Else go left
+
+Node x =root;
+while (x!= null)
+{
+    if (x.interval.intersects(lo,hi)) return x.interval;
+    else if (x.left == null) x=x.right;
+    else if (x.left.max<lo) x=x.right;
+    else x = x.left;
+}
+return null;
+
+
+Characteristics:
+1. If search goes right, no intersection in left
+2. If search goes left, then there is either an intersection in left or no intersection at all

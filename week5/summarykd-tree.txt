@@ -1,0 +1,6 @@
+
+1d range search -> BST
+2d orthogonal line segment intersection --> sweep line reduces to 1d range search
+kd range search --> kd tree
+1d interval search --> interval search tree
+2d orthogonal reactangle intersection --> sweep line reduces to 1d interval search

@@ -1,0 +1,7 @@
+K-d tree
+
+2-d tree
+
+data structure: recursively divide the points into half.
+vertical: left of p is point that in the left of p, right is right
+horizontal: left of p is point that below p, right is above p
