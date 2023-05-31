@@ -1,0 +1,129 @@
+import edu.princeton.cs.algs4.Point2D;
+import edu.princeton.cs.algs4.RectHV;
+import org.w3c.dom.css.Rect;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class KdTree {
+    private Node root;
+
+    private class Node {
+        private Point2D point;
+        private Node left;
+        private Node right;
+        private RectHV rect;
+
+        public Node(Point2D point) {
+            this.point = point;
+            left = null;
+            right = null;
+        }
+    }
+
+    public boolean isEmpty() {
+        return root == null;
+    }                // is the set empty?
+
+    public int size() {
+        return size(root);
+    }
+    // number of points in the set
+
+    private int size(Node node) {
+        if (node == null) return 0;
+        else return 1 + size(node.left) + size(node.right);
+    }
+
+    public void insert(Point2D p) {
+        if (p == null) throw new IllegalArgumentException();
+        root = insert(root, p, true, new RectHV(0, 0, 1, 1));
+
+    }
+    // add the point to the set (if it is not already in the set)
+
+    private Node insert(Node node, Point2D point, boolean isVertical, RectHV rect) {
+        if (node == null) return new Node(point);
+        if (point.equals(node.point)) return node;
+
+        int cmp = comparePoint(point, node.point, isVertical);
+
+        if (cmp < 0) {
+            RectHV leftRect = createLeftRect(node, isVertical);
+            node.left = insert(node.left, point, !isVertical, leftRect);
+        } else {
+            RectHV rightRect = createRighRect(node, isVertical);
+            node.right = insert(node.right, point, !isVertical, rightRect);
+        }
+
+        return node;
+    }
+
+    private RectHV createLeftRect(Node node, boolean isVertical) {
+        if (isVertical) return new RectHV(node.rect.xmin(), node.rect.ymin(), node.point.x(), node.rect.ymax());
+        else return new RectHV(node.rect.xmin(), node.rect.ymin(), node.rect.xmax(), node.point.y());
+    }
+
+    private RectHV createRighRect(Node node, boolean isVertical) {
+        if (isVertical) return new RectHV(node.point.x(), node.rect.ymin(), node.rect.xmax(), node.rect.ymax());
+        else return new RectHV(node.rect.xmin(), node.point.y(), node.rect.xmax(), node.rect.ymax());
+    }
+
+    private int comparePoint(Point2D p1, Point2D p2, boolean isVertical) {
+        if (isVertical) return Double.compare(p1.y(), p2.y());
+        return Double.compare(p1.x(), p2.x());
+    }
+
+    public boolean contains(Point2D p) {
+        if (p == null) throw new IllegalArgumentException();
+        return contains(root, p, true);
+    }       // does the set contain point p?
+
+    private boolean contains(Node node, Point2D point, boolean isVertical) {
+        if (node == null) return false;
+        if (point.equals(node.point)) return true;
+
+        int cmp = comparePoint(point, node.point, isVertical);
+        if (cmp < 0) return contains(node.left, point, !isVertical);
+        else return contains(node.right, point, !isVertical);
+    }
+
+    public void draw() {
+        draw(root);
+    }
+
+    private void draw(Node node) {
+        if (node == null) return;
+        draw(node.left);
+        draw(node.right);
+    }// draw all points to standard draw
+
+    public Iterable<Point2D> range(RectHV rect) {
+        if (rect == null) throw new IllegalArgumentException();
+        List<Point2D> resultPointsInRange = new ArrayList<>();
+        range(root, rect, resultPointsInRange);
+        return resultPointsInRange;
+    }         // all points that are inside the rectangle (or on the boundary)
+
+    private void range(Node node, RectHV rect, List<Point2D> resultPointsInRange) {
+        if (node == null) return;
+        if (rect.contains(node.point)) resultPointsInRange.add(node.point);
+
+        if (node.left != null && rect.intersects(node.left.rect)) {
+            range(node.left, rect, resultPointsInRange);
+        }
+
+        if (node.right != null && rect.intersects(node.right.rect)) {
+            range(node.right, rect, resultPointsInRange);
+        }
+    }
+
+    public Point2D nearest(Point2D p) {
+        int cmp = p.compareTo(root.point);
+        if (cmp < 0) return neartest(root, )
+    }
+
+    private Point2D neartest(Node node, Point2D point, boolean isLeft) {
+
+    }
+}
